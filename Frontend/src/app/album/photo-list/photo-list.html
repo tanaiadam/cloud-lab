@@ -8,8 +8,21 @@
       role="option"
       [attr.aria-selected]="photoStore.selectedPhoto()?.id === photo.id"
       tabindex="0">
-      <span class="photo-name">{{ photo.name }}</span>
-      <span class="photo-date">{{ photo.uploadDate | date: 'shortDate' }}</span>
+      <div class="photo-info">
+        @if (editingId() === photo.id) {
+          <input
+            type="text"
+            [value]="photo.name"
+            (keydown.enter)="saveRename(photo, $event)"
+            (blur)="cancelRename()"
+            (click)="$event.stopPropagation()"
+            autofocus
+            class="rename-input" />
+        } @else {
+          <span class="photo-name" [title]="photo.name">{{ photo.name }}</span>
+        }
+        <span class="photo-date">{{ photo.uploadDate | date: 'medium' }}</span>
+      </div>
     </div>
   } @empty {
     <p class="empty-state">No photos found.</p>
@@ -24,6 +37,5 @@
     role="menu">
     <li role="menuitem"><button type="button" (click)="renamePhoto()">Rename</button></li>
     <li role="menuitem"><button type="button" (click)="deletePhoto()">Delete</button></li>
-    <li role="menuitem"><button type="button" (click)="openPhoto()">Open</button></li>
   </ul>
 }

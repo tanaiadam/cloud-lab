@@ -1,12 +1,15 @@
-﻿using PhotoAlbum.Dal.Entities;
+﻿using PhotoAlbum.Bll.Dtos;
+using PhotoAlbum.Bll.Models;
 
 namespace PhotoAlbum.Bll.Interfaces;
 
 public interface IPhotoService
 {
-    Task<IEnumerable<Photo>> GetPhotosAsync(string sortBy);
+    Task<IEnumerable<PhotoDto>> GetPhotosAsync(PhotoFilterRequest request);
 
-    Task<Photo> UploadPhotoAsync(string fileName, Stream content);
+    Task<PhotoDto> UploadPhotoAsync(string fileName, Stream content);
 
     Task<bool> DeletePhotoAsync(Guid id);
+
+    Task<PhotoDto?> RenamePhotoAsync(Guid id, string newName);
 }

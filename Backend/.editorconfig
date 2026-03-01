@@ -1,0 +1,7 @@
+﻿# This file is the top-most EditorConfig file
+root = true
+
+[*.cs]
+
+# IDE0290: Use primary constructor
+dotnet_diagnostic.IDE0290.severity = none

@@ -12,7 +12,7 @@ using PhotoAlbum.Dal;
 namespace PhotoAlbum.Dal.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260228145310_InitialCreate")]
+    [Migration("20260301182413_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -30,6 +30,10 @@ namespace PhotoAlbum.Dal.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BlobUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

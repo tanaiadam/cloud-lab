@@ -17,7 +17,8 @@ namespace PhotoAlbum.Dal.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BlobUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

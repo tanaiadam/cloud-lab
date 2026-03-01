@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PhotoAlbum.Bll.Interfaces;
+using PhotoAlbum.Bll.Models;
 
 namespace PhotoAlbum.Api.Controllers;
 
@@ -8,9 +9,9 @@ namespace PhotoAlbum.Api.Controllers;
 public class PhotosController(IPhotoService photoService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetPhotos([FromQuery] string sortBy = "name")
+    public async Task<IActionResult> GetPhotos([FromQuery] PhotoFilterRequest request)
     {
-        var photos = await photoService.GetPhotosAsync(sortBy);
+        var photos = await photoService.GetPhotosAsync(request);
         return Ok(photos);
     }
 
@@ -33,5 +34,19 @@ public class PhotosController(IPhotoService photoService) : ControllerBase
         if (!success) return NotFound();
 
         return NoContent();
+    }
+
+    [HttpPut("{id}/name")]
+    public async Task<IActionResult> Rename(Guid id, [FromBody] RenamePhotoRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Name))
+            return BadRequest("Name cannot be empty.");
+
+        var updatedPhoto = await photoService.RenamePhotoAsync(id, request.Name);
+
+        if (updatedPhoto == null)
+            return NotFound();
+
+        return Ok(updatedPhoto);
     }
 }

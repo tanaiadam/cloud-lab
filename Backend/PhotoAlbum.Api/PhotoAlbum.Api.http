@@ -1,6 +1,0 @@
-@PhotoAlbum.Api_HostAddress = http://localhost:5256
-
-GET {{PhotoAlbum.Api_HostAddress}}/
-Accept: application/json
-
-###

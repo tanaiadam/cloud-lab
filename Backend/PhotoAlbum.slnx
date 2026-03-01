@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
   <Project Path="PhotoAlbum.Api/PhotoAlbum.Api.csproj" />
   <Project Path="PhotoAlbum.Bll/PhotoAlbum.Bll.csproj" />
   <Project Path="PhotoAlbum.Dal/PhotoAlbum.Dal.csproj" />

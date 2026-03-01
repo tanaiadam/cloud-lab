@@ -51,6 +51,20 @@ export class PhotoStore {
     }
   }
 
+  async renamePhoto(id: string, newName: string): Promise<void> {
+    try {
+      const updatedPhoto = await this.photoApi.renamePhoto(id, newName);
+
+      this._photos.update((photos) => photos.map((p) => (p.id === id ? updatedPhoto : p)));
+
+      if (this._selectedPhoto()?.id === id) {
+        this._selectedPhoto.set(updatedPhoto);
+      }
+    } catch (error) {
+      console.error('Failed to rename photo:', error);
+    }
+  }
+
   selectPhoto(photo: Photo): void {
     this._selectedPhoto.set(photo);
   }

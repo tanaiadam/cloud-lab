@@ -11,4 +11,6 @@ public class Photo
     public string Name { get; set; } = string.Empty;
 
     public DateTime UploadDate { get; set; } = DateTime.UtcNow;
+
+    public string BlobUrl { get; set; } = string.Empty;
 }
