@@ -63,7 +63,8 @@
               "buildTarget": "photo-album:build:production"
             },
             "development": {
-              "buildTarget": "photo-album:build:development"
+              "buildTarget": "photo-album:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

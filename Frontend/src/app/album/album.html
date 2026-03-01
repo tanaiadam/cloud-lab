@@ -1,0 +1,22 @@
+<div class="album-layout">
+  <app-photo-filter></app-photo-filter>
+
+  <main class="main-content">
+    <aside class="sidebar" aria-label="Photo List">
+      <app-photo-list></app-photo-list>
+    </aside>
+
+    <section class="viewer" aria-label="Photo Viewer">
+      @if (photoStore.selectedPhoto(); as photo) {
+        <div class="image-wrapper">
+          <h2>{{ photo.name }}</h2>
+          <img [src]="photo.blobUrl" [alt]="photo.name" class="main-image" />
+        </div>
+      } @else {
+        <div class="placeholder">
+          <p>Select a photo from the list to view it here.</p>
+        </div>
+      }
+    </section>
+  </main>
+</div>

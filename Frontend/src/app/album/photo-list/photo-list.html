@@ -1,0 +1,29 @@
+<div class="list-container" role="listbox" aria-label="Photo list">
+  @for (photo of photoStore.photos(); track photo.id) {
+    <div
+      class="list-item"
+      [class.selected]="photoStore.selectedPhoto()?.id === photo.id"
+      (click)="onLeftClick(photo)"
+      (contextmenu)="onRightClick($event, photo)"
+      role="option"
+      [attr.aria-selected]="photoStore.selectedPhoto()?.id === photo.id"
+      tabindex="0">
+      <span class="photo-name">{{ photo.name }}</span>
+      <span class="photo-date">{{ photo.uploadDate | date: 'shortDate' }}</span>
+    </div>
+  } @empty {
+    <p class="empty-state">No photos found.</p>
+  }
+</div>
+
+@if (contextMenu().visible) {
+  <ul
+    class="context-menu"
+    [style.top.px]="contextMenu().y"
+    [style.left.px]="contextMenu().x"
+    role="menu">
+    <li role="menuitem"><button type="button" (click)="renamePhoto()">Rename</button></li>
+    <li role="menuitem"><button type="button" (click)="deletePhoto()">Delete</button></li>
+    <li role="menuitem"><button type="button" (click)="openPhoto()">Open</button></li>
+  </ul>
+}

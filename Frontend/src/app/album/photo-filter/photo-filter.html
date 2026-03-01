@@ -1,0 +1,32 @@
+<form
+  [formGroup]="filterForm"
+  (ngSubmit)="applyFilters()"
+  class="filter-form"
+  aria-label="Filter photos">
+  <div class="form-group">
+    <label for="nameInput">Search Name</label>
+    <input id="nameInput" type="text" formControlName="name" placeholder="Filter by name..." />
+  </div>
+  <div class="form-group">
+    <label for="uploadDateAfter">After Date</label>
+    <input id="uploadDateAfter" type="date" formControlName="uploadDateAfter" />
+  </div>
+  <div class="form-group">
+    <label for="uploadDateBefore">Before Date</label>
+    <input id="uploadDateBefore" type="date" formControlName="uploadDateBefore" />
+  </div>
+  <div class="action-buttons">
+    <button type="submit" aria-label="Apply filters" class="search-btn">Search</button>
+    <label for="fileUpload" class="upload-btn" tabindex="0" (keydown.enter)="fileInput.click()">
+      Upload New Image
+    </label>
+    <input
+      #fileInput
+      id="fileUpload"
+      type="file"
+      accept="image/*"
+      class="hidden-input"
+      (change)="onFileSelected($event)"
+      aria-label="Upload an image" />
+  </div>
+</form>
