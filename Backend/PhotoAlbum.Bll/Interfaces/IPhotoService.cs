@@ -5,11 +5,11 @@ namespace PhotoAlbum.Bll.Interfaces;
 
 public interface IPhotoService
 {
-    Task<IEnumerable<PhotoDto>> GetPhotosAsync(PhotoFilterRequest request);
+    Task<IEnumerable<PhotoDto>> GetPhotosAsync(PhotoFilterRequest request, Guid userId);
 
-    Task<PhotoDto> UploadPhotoAsync(string fileName, Stream content);
+    Task<PhotoDto> UploadPhotoAsync(string fileName, Stream content, Guid userId);
 
-    Task<bool> DeletePhotoAsync(Guid id);
+    Task<bool> DeletePhotoAsync(Guid id, Guid userId);
 
-    Task<PhotoDto?> RenamePhotoAsync(Guid id, string newName);
+    Task<PhotoDto?> RenamePhotoAsync(Guid id, string newName, Guid userId);
 }

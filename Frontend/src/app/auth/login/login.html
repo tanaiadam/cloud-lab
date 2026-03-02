@@ -1,0 +1,61 @@
+<h2 class="text-align-center">Login</h2>
+<div class="app-plate">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="login-form">
+      <div>
+        <div class="form__control">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            aria-required="true"
+            placeholder="Input text"
+            [attr.aria-invalid]="
+              form.controls.email.invalid && (form.controls.email.touched || isSubmitted())
+            "
+            aria-describedby="emailErrorMessage" />
+          @if (form.controls.email.invalid && (form.controls.email.touched || isSubmitted())) {
+            <span id="emailErrorMessage" class="text-danger" role="alert"
+              >A valid email is required.</span
+            >
+          }
+        </div>
+
+        <div class="form__control">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            aria-required="true"
+            placeholder="Input text"
+            [attr.aria-invalid]="
+              form.controls.password.invalid && (form.controls.password.touched || isSubmitted())
+            "
+            aria-describedby="passwordErrorMessage" />
+          @if (
+            form.controls.password.invalid && (form.controls.password.touched || isSubmitted())
+          ) {
+            <span id="passwordErrorMessage" class="text-danger" role="alert"
+              >Password is required.</span
+            >
+          }
+        </div>
+      </div>
+
+      <div>
+        <div class="form__action">
+          @if (error()) {
+            <p role="alert" class="text-danger app-error-text">{{ error() }}</p>
+          }
+          <button type="submit" class="app-button">Login</button>
+          <div class="form__text">
+            If you don't have an account you may
+            <a routerLink="/register"><strong>Registration</strong></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

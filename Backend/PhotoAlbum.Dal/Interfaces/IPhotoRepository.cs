@@ -7,7 +7,7 @@ public interface IPhotoRepository
 {
     Task<IEnumerable<Photo>> GetFilteredPhotosAsync(PhotoFilterRequest request);
 
-    Task<Photo?> GetByIdAsync(Guid id);
+    Task<Photo?> GetByIdAsync(Guid id, Guid userId);
 
     Task AddAsync(Photo photo);
 

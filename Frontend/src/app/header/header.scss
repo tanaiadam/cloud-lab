@@ -17,12 +17,18 @@
     }
   }
 
+  .logo-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
   .user-actions {
     display: flex;
     align-items: center;
     gap: 1rem;
 
     .btn-primary {
+      display: inline-block;
       padding: 0.75rem 1.5rem;
       font-size: 1.1rem;
       background: #1976d2;
@@ -31,6 +37,7 @@
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
+      text-decoration: none;
 
       &:hover {
         background: #1565c0;

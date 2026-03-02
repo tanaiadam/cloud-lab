@@ -1,6 +1,5 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Microsoft.Extensions.Configuration;
 using PhotoAlbum.Bll.Dtos;
 using PhotoAlbum.Bll.Interfaces;
 using PhotoAlbum.Bll.Models;
@@ -20,13 +19,14 @@ public class PhotoService : IPhotoService
         _blobContainerClient = blobServiceClient.GetBlobContainerClient("photos");
     }
 
-    public async Task<IEnumerable<PhotoDto>> GetPhotosAsync(PhotoFilterRequest request)
+    public async Task<IEnumerable<PhotoDto>> GetPhotosAsync(PhotoFilterRequest request, Guid userId)
     {
         var photos = await _repository.GetFilteredPhotosAsync(new Dal.Models.PhotoFilterRequest()
         {
             Name = request.Name,
             UploadDateBefore = request.UploadDateBefore,
-            UploadDateAfter = request.UploadDateAfter
+            UploadDateAfter = request.UploadDateAfter,
+            UserId = userId
         });
 
         return photos.Select(p => new PhotoDto
@@ -37,7 +37,7 @@ public class PhotoService : IPhotoService
             BlobUrl = p.BlobUrl
         });
     }
-    public async Task<PhotoDto> UploadPhotoAsync(string fileName, Stream content)
+    public async Task<PhotoDto> UploadPhotoAsync(string fileName, Stream content, Guid userId)
     {
         var photoId = Guid.NewGuid();
         var safeFileName = fileName.Length > 40 ? fileName[..40] : fileName;
@@ -52,7 +52,8 @@ public class PhotoService : IPhotoService
             Id = photoId,
             Name = safeFileName,
             UploadDate = DateTime.UtcNow,
-            BlobUrl = blobClient.Uri.ToString()
+            BlobUrl = blobClient.Uri.ToString(),
+            UserId = userId
         };
 
         await _repository.AddAsync(photo);
@@ -66,9 +67,9 @@ public class PhotoService : IPhotoService
         };
     }
 
-    public async Task<bool> DeletePhotoAsync(Guid id)
+    public async Task<bool> DeletePhotoAsync(Guid id, Guid userId)
     {
-        var photo = await _repository.GetByIdAsync(id);
+        var photo = await _repository.GetByIdAsync(id, userId);
         if (photo == null) return false;
 
         var blobName = photo.BlobUrl.Split('/').Last();
@@ -79,9 +80,9 @@ public class PhotoService : IPhotoService
         return true;
     }
 
-    public async Task<PhotoDto?> RenamePhotoAsync(Guid id, string newName)
+    public async Task<PhotoDto?> RenamePhotoAsync(Guid id, string newName, Guid userId)
     {
-        var photo = await _repository.GetByIdAsync(id);
+        var photo = await _repository.GetByIdAsync(id, userId);
         if (photo == null) return null;
 
         photo.Name = newName.Length > 40 ? newName[..40] : newName;

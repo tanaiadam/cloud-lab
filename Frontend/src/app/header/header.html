@@ -3,8 +3,17 @@
     <img ngSrc="camera.svg" alt="Photo Album Logo" width="92" height="53" priority />
     <h1>Photo Album</h1>
   </div>
-  <div class="user-actions">
-    <span class="user-name">Guest User</span>
-    <button type="button" class="btn-primary" aria-label="Log in to your account">Login</button>
-  </div>
+
+  <nav class="user-actions" aria-label="User navigation">
+    @if (isLoggedIn()) {
+      <span>Welcome, {{ user()?.name }}</span>
+      <button
+        type="button"
+        class="btn-primary"
+        (click)="logout()"
+        aria-label="Log out of your account">
+        Logout
+      </button>
+    }
+  </nav>
 </header>

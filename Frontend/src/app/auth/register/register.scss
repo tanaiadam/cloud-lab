@@ -1,0 +1,13 @@
+@use '../../shared/styles/styles';
+
+.registration-form {
+  width: 260px;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+input.ng-invalid:not(.ng-touched) {
+  border: 1px solid #ccc;
+}

@@ -16,7 +16,7 @@ public class PhotoRepository : IPhotoRepository
 
     public async Task<IEnumerable<Photo>> GetFilteredPhotosAsync(PhotoFilterRequest request)
     {
-        var query = _context.Photos.AsQueryable();
+        var query = _context.Photos.Where(p => p.UserId == request.UserId);
 
         if (!string.IsNullOrWhiteSpace(request.Name))
         {
@@ -38,8 +38,8 @@ public class PhotoRepository : IPhotoRepository
             .ToListAsync();
     }
 
-    public async Task<Photo?> GetByIdAsync(Guid id) =>
-        await _context.Photos.FindAsync(id);
+    public async Task<Photo?> GetByIdAsync(Guid id, Guid userId) =>
+        await _context.Photos.FirstOrDefaultAsync(p => p.Id == id && p.UserId == userId);
 
     public async Task AddAsync(Photo photo)
     {
