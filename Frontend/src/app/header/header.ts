@@ -1,6 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthStore } from '../auth/services/auth-store';
 
 @Component({
@@ -8,7 +8,7 @@ import { AuthStore } from '../auth/services/auth-store';
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgOptimizedImage, RouterLink],
+  imports: [NgOptimizedImage],
 })
 export class Header {
   private readonly authStore = inject(AuthStore);
